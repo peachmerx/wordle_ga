@@ -15289,7 +15289,7 @@ const dictionary = [
     "rural",
     "shave"
   ]
-const FLIP_ANIMATION_DURATION = 500
+const flip_animate_time = 500
 const gameBox = document.querySelector("[data-game-box]")
 const messageBox = document.querySelector("[data-message-box]")
 const keyboard = document.querySelector("[data-keyboard]")
@@ -15386,7 +15386,7 @@ function flipTile(tile, index, array, guess) {
   const key = keyboard.querySelector(`[data-key="${letter}"i]`)
   setTimeout(() => {
     tile.classList.add("flip")
-  }, (index * FLIP_ANIMATION_DURATION) / 2)
+  }, (index * flip_animate_time) / 2)
 
   tile.addEventListener("transitionend", () => {
     tile.classList.remove("flip")
@@ -15402,29 +15402,35 @@ function flipTile(tile, index, array, guess) {
     }
 
     if (index === array.length - 1) {
-      tile.addEventListener("transitionend", () => {
-        startGame()
-        //checkWinLose(guess, array)
-      })
+      tile.addEventListener(
+        "transitionend",
+        () => {
+          startGame()
+          checkWinLose(guess, array)
+        },
+        { once: true }
+      )
     }
-  })
+  },
+  { once: true }
+)
 }
 
 function getCurrentTiles() {
   return gameBox.querySelectorAll('[data-state="active"]')
 }
 
-function showAlert(message, duration = 1000) {
-  const alert = document.createElement("div")
-  alert.textContent = message
-  alert.classList.add("alert")
-  messageBox.prepend(alert)
+function showAlert(text, duration = 1000) {
+  const message = document.createElement("div")
+  message.textContent = text
+  message.classList.add("message")
+  messageBox.prepend(message)
   if (duration == null) return
 
   setTimeout(() => {
-    alert.classList.add("hide")
-    alert.addEventListener("transitionend", () => {
-        alert.remove()
+    message.classList.add("hide")
+    message.addEventListener("transitionend", () => {
+        message.remove()
     })
   }, duration)
 }
@@ -15440,4 +15446,18 @@ function shakeTiles(tiles) {
       { once: true }
     )
   })
+}
+
+function checkWinLose(guess, tiles) {
+  if (guess === targetWord) {
+    showAlert("You Win", 5000)
+    stopGame()
+    return
+  }
+
+  const remainingTiles = gameBox.querySelectorAll(":not([data-letter])")
+  if (remainingTiles.length === 0) {
+    showAlert(targetWord.toUpperCase(), null)
+    stopGame()
+  }
 }
