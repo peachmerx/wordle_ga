@@ -15289,6 +15289,7 @@ const dictionary = [
     "rural",
     "shave"
   ]
+
 const flip_animate_time = 500
 const gameBox = document.querySelector("[data-game-box]")
 const messageBox = document.querySelector("[data-message-box]")
@@ -15300,12 +15301,12 @@ startGame()
 
 function startGame() {
   document.addEventListener("click", mouseClick);
-  document.addEventListener("keypress", keyboardClick);
+  document.addEventListener("keydown", keyboardClick);
 }
 
 function stopGame() {
   document.removeEventListener("click", mouseClick);
-  document.removeEventListener("keypress", keyboardClick);
+  document.removeEventListener("keydown", keyboardClick);
 }
 
 function mouseClick(press) {
