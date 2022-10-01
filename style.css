@@ -12,9 +12,6 @@ body {
   margin: 0;
   padding: 1em;
 }
-header.heading {
-  //background-color: hsl(37, 90%, 61%);
-}
 h1 {
   font-size: 50px;
   text-align: center;
