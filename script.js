@@ -15294,9 +15294,10 @@ const gameBox = document.querySelector("[data-game-box]")
 const messageBox = document.querySelector("[data-message-box]")
 const keyboard = document.querySelector("[data-keyboard]")
 const targetWord = wordsList[Math.floor (Math.random() * wordsList.length)]
+console.log(targetWord)
 
 startGame()  
-// when player starts playing
+
 function startGame() {
   document.addEventListener("click", mouseClick);
   document.addEventListener("keypress", keyboardClick);
@@ -15326,11 +15327,11 @@ function mouseClick(press) {
 
 function keyboardClick(press) {
   if (press.key === "Enter") {
-    submitGuess()
+    enterGuessWord()
     return
   }
 
-  if (press.key === "backspace" || press.key === "delete") {
+  if (press.key === "Backspace" || press.key === "Delete") {
     deleteKey()
     return
   }
@@ -15362,7 +15363,7 @@ function deleteKey() {
 function enterGuessWord() {
   const currentTiles = [...getCurrentTiles()]
   if (currentTiles.length !== 5) {
-    showAlert("not enough letters")
+    showAlert("Sorry, not enough letters")
     shakeTiles(currentTiles)
     return
   }
@@ -15372,7 +15373,7 @@ function enterGuessWord() {
   }, "")
 
   if (!dictionary.includes(guess)) {
-    showAlert("NOT A WORD")
+    showAlert("SORRY THAT'S NOT A WORD")
     shakeTiles(currentTiles)
     return
   }  
@@ -15450,7 +15451,7 @@ function shakeTiles(tiles) {
 
 function checkWinLose(guess, tiles) {
   if (guess === targetWord) {
-    showAlert("You Win", 5000)
+    showAlert("CONGRATULATIONS! YOU WIN!", 1000)
     stopGame()
     return
   }
