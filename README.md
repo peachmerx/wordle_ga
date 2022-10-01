@@ -14,6 +14,7 @@ Wordle project for General Assembly
 
 ## Road Blocks with this project:
 - Sometimes finding the classList for some reason it wasn't working
+- Couldn't get the Backsapce to work on keboard (thansk to Gab for the help!)
 
 ## Research and ideas sources for this project:
 - https://css-tricks.com/a-complete-guide-to-data-attributes/
